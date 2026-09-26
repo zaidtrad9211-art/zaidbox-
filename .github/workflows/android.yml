@@ -56,8 +56,7 @@ jobs:
           set -e
           if [ "$code" != "0" ]; then
             # Put the end of the log where it can be read without signing in.
-            msg=$(grep -E "error|Error|FAILURE|What went wrong|wrong:|> " "$RUNNER_TEMP/gradle.log" | tail -40 | sed ':a;N;$!ba;s/
-/%0A/g')
+            msg=$(grep -E "error|Error|FAILURE|What went wrong|wrong:|> " "$RUNNER_TEMP/gradle.log" | tail -40 | awk '{printf "%s%%0A", $0}')
             echo "::error title=Gradle failed::$msg"
             exit 1
           fi
