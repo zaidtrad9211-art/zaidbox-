@@ -4,98 +4,184 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0E6B5C">
+<meta name="theme-color" content="#C8487F">
 <title>حلقة جزء عمّ</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Readex+Pro:wght@500;600;700&display=swap">
 <style>
 :root{
-  --bg:#F5F3EE; --card:#FFFFFF; --ink:#1E2A28; --muted:#6B7774; --line:#E3DED3;
-  --brand:#0E6B5C; --brand-soft:#DCEFEA; --ok:#1F8A4C; --ok-soft:#DFF3E6;
-  --bad:#C0392B; --bad-soft:#FBE3E0; --warn:#B7791F; --warn-soft:#FDF1D8;
+  --bg:#FFF6F9; --surface:#FFFFFF; --surface-2:#FDEEF4; --ink:#3B1F2E; --muted:#8E6A7C; --line:#F3DCE6;
+  --brand:#C8487F; --brand-ink:#FFFFFF; --brand-soft:#FBE3EE; --brand-deep:#9E2F60;
+  --ok:#2F9670; --ok-soft:#E1F4EC; --bad:#D9485F; --bad-soft:#FDE6EA; --lav:#8A6CC8; --lav-soft:#EFE9FA;
+  --shadow:0 1px 2px rgba(158,47,96,.06), 0 6px 20px rgba(158,47,96,.07);
+  --radius:18px;
+  --f-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,system-ui,sans-serif;
+  --f-head:"Readex Pro","IBM Plex Sans Arabic","Segoe UI",Tahoma,sans-serif;
+  --f-quran:"Amiri","Traditional Arabic","Times New Roman",serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#121816; --card:#1B2321; --ink:#E8EEEC; --muted:#9AA7A3; --line:#2C3633;
-    --brand:#3FB39C; --brand-soft:#1D3A34; --ok:#4CC27E; --ok-soft:#183325;
-    --bad:#EF6B5C; --bad-soft:#3A1E1B; --warn:#E3A941; --warn-soft:#382C14;
-   color-scheme:dark;}
+    --bg:#1A1116; --surface:#24171F; --surface-2:#2E1D27; --ink:#F6E8EF; --muted:#B997A8; --line:#3B2632;
+    --brand:#F07AAE; --brand-ink:#2A0F1C; --brand-soft:#43202F; --brand-deep:#F7A6C8;
+    --ok:#5CCB9D; --ok-soft:#173327; --bad:#F27A8C; --bad-soft:#3D1C23; --lav:#B7A0EE; --lav-soft:#2C2440;
+    --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+  }
 }
 :root[data-theme="dark"]{
-    --bg:#121816; --card:#1B2321; --ink:#E8EEEC; --muted:#9AA7A3; --line:#2C3633;
-    --brand:#3FB39C; --brand-soft:#1D3A34; --ok:#4CC27E; --ok-soft:#183325;
-    --bad:#EF6B5C; --bad-soft:#3A1E1B; --warn:#E3A941; --warn-soft:#382C14;
-   color-scheme:dark;}
+  --bg:#1A1116; --surface:#24171F; --surface-2:#2E1D27; --ink:#F6E8EF; --muted:#B997A8; --line:#3B2632;
+  --brand:#F07AAE; --brand-ink:#2A0F1C; --brand-soft:#43202F; --brand-deep:#F7A6C8;
+  --ok:#5CCB9D; --ok-soft:#173327; --bad:#F27A8C; --bad-soft:#3D1C23; --lav:#B7A0EE; --lav-soft:#2C2440;
+  --shadow:0 1px 2px rgba(0,0,0,.3); color-scheme:dark;
+}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,system-ui,sans-serif;font-size:17px;line-height:1.5;
-  padding-bottom:calc(76px + env(safe-area-inset-bottom))}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--brand);color:#fff;padding:12px 16px}
-header h1{margin:0;font-size:20px}
-header .sub{font-size:14px;opacity:.85}
-main{max-width:720px;margin:0 auto;padding:14px 16px}
-nav{position:fixed;bottom:0;inset-inline:0;z-index:5;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-nav button{flex:1;border:0;background:none;color:var(--muted);font:inherit;font-size:14px;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;gap:2px}
-nav button .ico{font-size:22px;line-height:1}
-nav button.on{color:var(--brand);font-weight:700}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin-bottom:12px}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+  padding-bottom:calc(84px + env(safe-area-inset-bottom,0px));-webkit-tap-highlight-color:transparent}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.hide{display:none!important}
+
+/* رأس الصفحة */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:14px 16px 10px}
+.hwrap{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;border-radius:14px;background:var(--brand);color:var(--brand-ink);display:grid;place-items:center;flex:none}
+.logo svg{width:24px;height:24px}
+header h1{margin:0;font-family:var(--f-head);font-size:19px;font-weight:700;letter-spacing:-.2px}
+header .sub{font-size:13px;color:var(--muted)}
+main{max-width:720px;margin:0 auto;padding-inline:16px;display:flex;flex-direction:column;gap:14px}
+main > section{display:flex;flex-direction:column;gap:14px}
+
+/* شريط التنقل */
+nav{position:fixed;bottom:0;inset-inline:0;z-index:6;display:flex;justify-content:center;gap:4px;
+  background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+  padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;max-width:180px;border:0;background:none;color:var(--muted);font-size:13px;font-weight:500;padding:6px 4px;
+  border-radius:14px;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+nav button svg{width:22px;height:22px}
+nav button.on{color:var(--brand);background:var(--brand-soft);font-weight:700}
+
+/* عناصر عامة */
+.card{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px}
 .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .grow{flex:1;min-width:0}
 .muted{color:var(--muted);font-size:14px}
-h2{font-size:18px;margin:4px 0 12px}
-h3{font-size:16px;margin:0 0 8px}
-button,.btn{font:inherit;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;cursor:pointer}
-.btn-main{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:700}
-.btn-danger{color:var(--bad);border-color:var(--bad)}
-.btn{display:inline-block}
-:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
-.btn-sm{padding:6px 10px;font-size:14px}
-input,select,textarea{font:inherit;width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
-textarea{min-height:64px;resize:vertical}
-label{display:block;font-size:14px;color:var(--muted);margin:10px 0 4px}
-.att{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-.att button{font-size:17px;padding:12px;font-weight:700}
-.att .p.on{background:var(--ok);border-color:var(--ok);color:#fff}
-.att .a.on{background:var(--bad);border-color:var(--bad);color:#fff}
-.stu-name{font-weight:700;font-size:18px}
-.badge{display:inline-block;font-size:13px;padding:2px 9px;border-radius:99px;font-weight:700}
-.b-warn{background:var(--bad-soft);color:var(--bad)}
-.b-ok{background:var(--ok-soft);color:var(--ok)}
-.b-mid{background:var(--warn-soft);color:var(--warn)}
-.b-brand{background:var(--brand-soft);color:var(--brand)}
-.alert{background:var(--bad-soft);color:var(--bad);border-radius:12px;padding:10px 12px;margin-bottom:12px;font-weight:600}
-.info{background:var(--warn-soft);color:var(--warn);border-radius:12px;padding:10px 12px;margin-bottom:12px}
-.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:var(--brand)}
-.surahs{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:8px}
-.surah{padding:8px 6px;text-align:center;font-size:15px;border-radius:10px}
-.surah small{display:block;font-size:12px;color:var(--muted)}
-.surah.s-learning{background:var(--warn-soft);border-color:var(--warn);color:var(--warn)}
-.surah.s-done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok);font-weight:700}
-.list-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
-.list-item:last-child{border-bottom:0}
-.tabs{display:flex;gap:6px;margin-bottom:12px}
-.tabs button{flex:1}
-.tabs button.on{background:var(--brand-soft);border-color:var(--brand);color:var(--brand);font-weight:700}
-.log{font-size:15px;padding:8px 0;border-bottom:1px dashed var(--line)}
-.log:last-child{border-bottom:0}
-.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.summary div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}
-.summary b{display:block;font-size:22px}
-.hide{display:none!important}
-.toast{position:fixed;bottom:calc(90px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:15px;z-index:20;opacity:0;transition:opacity .2s;pointer-events:none}
-.toast.show{opacity:1}
-dialog{border:0;border-radius:16px;padding:0;width:min(560px,94vw);background:var(--card);color:var(--ink)}
-dialog::backdrop{background:rgba(0,0,0,.45)}
-dialog .dhead{padding:14px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
-dialog .dbody{padding:12px 16px 16px;max-height:75vh;overflow:auto}
+h2{font-family:var(--f-head);font-size:17px;font-weight:600;margin:0 0 6px}
+h3{font-family:var(--f-head);font-size:15px;font-weight:600;margin:0}
+.btn{color:var(--ink);border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:10px 16px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:inline-block}
+.btn.btn-main{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.btn.btn-soft{background:var(--brand-soft);border-color:transparent;color:var(--brand-deep)}
+.btn.btn-danger{color:var(--bad);border-color:var(--bad-soft);background:var(--bad-soft)}
+.btn-sm{padding:6px 12px;font-size:14px;border-radius:10px}
+input,select,textarea{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--brand);background:var(--surface)}
+textarea{min-height:72px;resize:vertical}
+label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:12px 0 6px}
+.pill{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.p-bad{background:var(--bad-soft);color:var(--bad)}
+.p-ok{background:var(--ok-soft);color:var(--ok)}
+.p-lav{background:var(--lav-soft);color:var(--lav)}
+.p-brand{background:var(--brand-soft);color:var(--brand-deep)}
+.alert{background:var(--bad-soft);color:var(--bad);border-radius:14px;padding:12px 14px;font-weight:600;font-size:15px}
+.info{background:var(--lav-soft);color:var(--lav);border-radius:14px;padding:10px 14px;font-size:14px}
+
+/* شريط التاريخ */
+.datebar{display:flex;align-items:center;gap:8px}
+.datebar .d{flex:1;text-align:center}
+.datebar .d b{display:block;font-family:var(--f-head);font-size:17px}
+.datebar .d span{font-size:13px;color:var(--muted)}
+.iconbtn{width:42px;height:42px;border-radius:12px;border:1px solid var(--line);background:var(--surface-2);display:grid;place-items:center;cursor:pointer;flex:none}
+.iconbtn svg{width:20px;height:20px}
+.datepick{position:relative}
+.datepick input{position:absolute;inset:0;opacity:0;cursor:pointer}
+
+/* الأرقام */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--surface);border-radius:16px;box-shadow:var(--shadow);padding:12px 8px;text-align:center}
+.stat b{display:block;font-family:var(--f-head);font-size:24px;line-height:1.2;font-variant-numeric:tabular-nums}
+.stat span{font-size:13px;color:var(--muted)}
+
+/* البحث */
+.search{position:relative}
+.search svg{position:absolute;inset-inline-start:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--muted);pointer-events:none}
+.search input{padding-inline-start:42px;background:var(--surface);box-shadow:var(--shadow);border-color:transparent}
+
+/* قائمة الطلاب */
+.list{background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.who{display:flex;align-items:center;gap:12px;flex:1;min-width:0;background:none;border:0;padding:0;text-align:start;cursor:pointer}
+.avatar{width:42px;height:42px;border-radius:50%;background:var(--brand-soft);color:var(--brand-deep);display:grid;place-items:center;font-family:var(--f-head);font-weight:700;font-size:17px;flex:none}
+.who .n{font-weight:700;font-size:16px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.who .s{font-size:13px;color:var(--muted)}
+.tog{display:flex;gap:6px;flex:none}
+.tog button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;color:var(--muted)}
+.tog button svg{width:20px;height:20px}
+.tog .p.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.tog .a.on{background:var(--bad);border-color:var(--bad);color:#fff}
+.bar{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--brand);border-radius:99px}
+.chev{color:var(--muted);flex:none}
+.empty{padding:28px 16px;text-align:center;color:var(--muted)}
+
+/* تبويبات */
+.seg{display:flex;background:var(--surface-2);border-radius:14px;padding:4px;gap:4px}
+.seg button{flex:1;border:0;background:none;padding:9px 6px;border-radius:10px;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--surface);color:var(--brand-deep);box-shadow:var(--shadow)}
+
+/* نافذة الطالب */
+dialog{border:0;padding:0;background:var(--surface);color:var(--ink);width:100%;max-width:560px;max-height:92vh;border-radius:24px 24px 0 0;
+  margin:auto auto 0;box-shadow:0 -10px 40px rgba(0,0,0,.18);overflow:auto}
+@media (min-width:600px){ dialog{border-radius:24px;margin:auto} }
+dialog::backdrop{background:rgba(59,31,46,.45)}
+.dhead{position:sticky;top:0;background:var(--surface);z-index:1;padding:14px 16px 12px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}
+.dhead h3{font-size:18px}
+.dbody{padding:14px 16px 20px;display:flex;flex-direction:column;gap:14px}
+.grab{width:40px;height:4px;border-radius:99px;background:var(--line);margin:8px auto 0}
+.box{background:var(--surface-2);border-radius:16px;padding:14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips button{border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:7px 14px;font-weight:600;font-size:14px;cursor:pointer}
+.chips button.on{background:var(--brand);border-color:var(--brand);color:var(--brand-ink)}
+.chips .c-p.on{background:var(--ok);border-color:var(--ok);color:#fff}
+.chips .c-a.on{background:var(--bad);border-color:var(--bad);color:#fff}
+
+/* السجل */
+.hist{display:flex;flex-direction:column}
+.h{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.h:last-child{border-bottom:0}
+.h .dot{width:10px;height:10px;border-radius:50%;margin-top:7px;flex:none}
+.h .dot.ok{background:var(--ok)} .h .dot.bad{background:var(--bad)}
+.h .t{flex:1;min-width:0}
+.h .t b{font-size:15px}
+.h .t .meta{font-size:14px;margin-top:2px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.h .t .note{font-size:14px;color:var(--muted);margin-top:4px;white-space:pre-wrap}
+.h .acts{display:flex;gap:6px;flex:none;align-items:flex-start}
+.sname{font-family:var(--f-quran);font-size:17px;font-weight:700}
+
+/* خريطة السور */
+.surahs{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+.surah{border:1.5px solid var(--line);background:var(--surface);border-radius:14px;padding:8px 4px;text-align:center;cursor:pointer}
+.surah .sname{display:block;font-size:18px;line-height:1.4}
+.surah small{display:block;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.surah.s-learning{background:var(--lav-soft);border-color:var(--lav);color:var(--lav)}
+.surah.s-done{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.legend{display:flex;gap:8px;flex-wrap:wrap}
+
+.toast{position:fixed;bottom:calc(96px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,8px);background:var(--ink);color:var(--bg);
+  padding:10px 18px;border-radius:99px;font-size:14px;font-weight:600;z-index:30;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){ .toast{transition:none} }
 </style>
 </head>
 <body>
 <header>
-  <h1>حلقة جزء عمّ</h1>
-  <div class="sub" id="hsub">متابعة الحفظ والحضور</div>
+  <div class="hwrap">
+    <div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.6 4 5v12.5c3-.4 6 0 8 1.5 2-1.5 5-1.9 8-1.5V5c-3-.4-6 0-8 1.5z"/><path d="M12 6.5V19"/></svg></div>
+    <div class="grow"><h1>حلقة جزء عمّ</h1><div class="sub" id="hsub">متابعة الحفظ والحضور</div></div>
+  </div>
 </header>
 
 <main>
@@ -105,14 +191,14 @@ dialog .dbody{padding:12px 16px 16px;max-height:75vh;overflow:auto}
 </main>
 
 <nav>
-  <button data-v="today" class="on"><span class="ico">✅</span>الحضور</button>
-  <button data-v="students"><span class="ico">👧</span>الطلاب</button>
-  <button data-v="more"><span class="ico">⚙️</span>المزيد</button>
+  <button data-v="today" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17M9 15l2 2 4-4"/></svg>الحضور</button>
+  <button data-v="students"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.5-3.5 3.2-5.5 6.5-5.5s6 2 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M17 14c2.5 0 4.2 1.6 4.5 4.5"/></svg>الطلاب</button>
+  <button data-v="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>ملفات ونسخ</button>
 </nav>
 
-<dialog id="dlg"><div class="dhead"><h3 class="grow" id="dlgTitle" style="margin:0"></h3><button class="btn-sm" onclick="dlg.close()">إغلاق</button></div><div class="dbody" id="dlgBody"></div></dialog>
-<dialog id="cdlg"><div class="dbody"><p id="cMsg" style="font-weight:600"></p><div class="row"><button class="btn-main grow" id="cYes">نعم</button><button class="grow" id="cNo">إلغاء</button></div></div></dialog>
-<div class="toast" id="toast"></div>
+<dialog id="dlg"><div class="grab"></div><div class="dhead"><h3 class="grow" id="dlgTitle"></h3><button class="btn btn-sm" id="dlgClose">إغلاق</button></div><div class="dbody" id="dlgBody"></div></dialog>
+<dialog id="cdlg"><div class="dbody"><p id="cMsg" style="font-weight:600;margin:6px 0"></p><div class="row"><button class="btn btn-main grow" id="cYes">نعم</button><button class="btn grow" id="cNo">إلغاء</button></div></div></dialog>
+<div class="toast" id="toast" role="status"></div>
 <input type="file" id="fileIn" class="hide">
 
 <script>
@@ -124,12 +210,24 @@ const TOTAL = ORDER.length;
 const CLASS_DAYS = [6,1]; // السبت، الاثنين
 const WARN_AFTER = 3;     // مجموع الغيابات
 const DAYS_AR = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const MONTHS_AR = ['كانون الثاني','شباط','آذار','نيسان','أيار','حزيران','تموز','آب','أيلول','تشرين الأول','تشرين الثاني','كانون الأول'];
 const RESULTS = {done:'حفظ ✓', learning:'قيد الحفظ', review:'مراجعة'};
 const KEY = 'quran-circle-v1';
+const ICON = {
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+  x:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/></svg>',
+  right:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>',
+  left:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>',
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>',
+  search:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg>',
+  chev:'<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>'
+};
 
 let S = load();
 let curDate = defaultDate();
+let curView = 'today';
 let studentsFilter = 'all';
+let qToday = '', qStudents = '';
 
 function load(){
   try{ const d = JSON.parse(localStorage.getItem(KEY)); if(d && d.students) return d; }catch(e){}
@@ -145,13 +243,20 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2,7);
 function iso(d){ return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
 function parseIso(s){ const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); }
-function niceDate(s){ const d = parseIso(s); return DAYS_AR[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear(); }
+function niceDate(s){ const d = parseIso(s); return DAYS_AR[d.getDay()] + ' ' + d.getDate() + ' ' + MONTHS_AR[d.getMonth()]; }
 function defaultDate(){
   // اليوم إذا كان يوم دوام، وإلا آخر يوم دوام فات
   const d = new Date();
   for(let i=0;i<7;i++){ if(CLASS_DAYS.includes(d.getDay())) return iso(d); d.setDate(d.getDate()-1); }
   return iso(new Date());
 }
+function shiftClassDay(s, dir){ const d = parseIso(s); do{ d.setDate(d.getDate()+dir); } while(!CLASS_DAYS.includes(d.getDay())); return iso(d); }
+// البحث بيتجاهل الهمزات والتاء المربوطة والتشكيل
+const norm = s => String(s||'').toLowerCase().replace(/[ً-ْـ]/g,'').replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/\s+/g,' ').trim();
+const match = (s, q) => !q || norm(s.name).includes(norm(q));
+const initial = n => (String(n).trim()[0] || '؟');
+
+function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 1800); }
 function askConfirm(msg){
   return new Promise(res => {
     const d = $('#cdlg'); $('#cMsg').textContent = msg;
@@ -161,77 +266,34 @@ function askConfirm(msg){
   });
 }
 function copyText(text){
-  const done = () => toast('تم النسخ');
-  try{ navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text)); }catch(e){ fallbackCopy(text); }
+  try{ navigator.clipboard.writeText(text).then(() => toast('تم النسخ'), () => fallbackCopy(text)); }catch(e){ fallbackCopy(text); }
 }
 function fallbackCopy(text){
   const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
   try{ document.execCommand('copy'); toast('تم النسخ'); }catch(e){ toast('حدّدي النص وانسخيه يدوياً'); } t.remove();
 }
-function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 1800); }
 const sorted = () => [...S.students].sort((a,b)=>a.name.localeCompare(b.name,'ar'));
 
 // ---------- حسابات ----------
+const isMarked = r => r && (r.present === true || r.present === false);
 function recordsOf(id){
-  return Object.keys(S.sessions).sort().map(date => ({date, ...(S.sessions[date][id]||{})})).filter(r => r.present === true || r.present === false);
+  return Object.keys(S.sessions).sort().map(date => ({date, ...(S.sessions[date][id]||{})})).filter(isMarked);
 }
 function absentCount(id){ return recordsOf(id).filter(r => r.present === false).length; }
-function stats(id){
-  const r = recordsOf(id);
-  return {present:r.filter(x=>x.present).length, absent:r.filter(x=>!x.present).length};
-}
+function stats(id){ const r = recordsOf(id); return {present:r.filter(x=>x.present).length, absent:r.filter(x=>!x.present).length}; }
 function doneCount(st){ return ORDER.filter(n => st.surahs?.[n] === 'done').length; }
 function nextSurah(st){ return ORDER.find(n => st.surahs?.[n] !== 'done'); }
 function warned(){ return S.students.filter(s => absentCount(s.id) >= WARN_AFTER); }
-
-// ---------- شاشة الحضور ----------
-function renderToday(){
-  const day = parseIso(curDate).getDay();
-  const sess = S.sessions[curDate] || {};
-  const list = sorted();
-  const marked = list.filter(s => sess[s.id] && (sess[s.id].present === true || sess[s.id].present === false));
-  const pres = list.filter(s => sess[s.id]?.present === true).length;
-  const w = warned();
-  let h = `<div class="card"><label style="margin-top:0">تاريخ الحصة</label>
-    <div class="row"><input type="date" id="dateIn" value="${curDate}" class="grow">
-    <button class="btn-sm" id="prevDay">◀ السابق</button></div>
-    <div class="muted" style="margin-top:6px">${niceDate(curDate)}</div></div>`;
-  if(!CLASS_DAYS.includes(day)) h += `<div class="info">هذا اليوم مش سبت ولا اثنين. إذا الحصة انعملت فيه عادي، كمّلي.</div>`;
-  if(w.length) h += `<div class="alert">⚠️ غابوا ${WARN_AFTER} مرات أو أكثر: ${w.map(s=>esc(s.name)).join('، ')}</div>`;
-  if(!list.length){
-    h += `<div class="card"><p>ما في طلاب لسا.</p><button class="btn-main" onclick="go('students');addStudent()">أضيفي طالب</button>
-      <button onclick="go('more')">استيراد من Excel</button></div>`;
-    $('#v-today').innerHTML = h; bindToday(); return;
-  }
-  h += `<div class="summary"><div><b>${list.length}</b><span class="muted">الطلاب</span></div>
-    <div><b style="color:var(--ok)">${pres}</b><span class="muted">حاضر</span></div>
-    <div><b style="color:var(--bad)">${marked.length-pres}</b><span class="muted">غائب</span></div></div>
-    <div class="row" style="margin-bottom:12px"><button class="grow" id="allPresent">الكل حاضر</button>
-    <button class="grow" id="shareDay">مشاركة ملخص اليوم</button></div>`;
-  for(const s of list){
-    const r = sess[s.id] || {};
-    const st = absentCount(s.id);
-    const nx = nextSurah(s);
-    h += `<div class="card" data-id="${s.id}">
-      <div class="row"><div class="grow"><span class="stu-name">${esc(s.name)}</span>
-        ${st>=WARN_AFTER?`<span class="badge b-warn">⚠️ غاب ${st} مرات</span>`:''}
-        <div class="muted">محفوظ ${doneCount(s)}/${TOTAL}${nx?` · التالي: ${SURAHS[nx]}`:' · ختم جزء عمّ 🎉'}</div></div></div>
-      <div class="att"><button class="p ${r.present===true?'on':''}" data-act="p">حاضر</button>
-        <button class="a ${r.present===false?'on':''}" data-act="a">غائب</button></div>
-      <div class="${r.present===true?'':'hide'}">
-        <label>السورة اللي سمّعها</label>
-        <select data-f="surah"><option value="">—</option>${ORDER.map(n=>`<option value="${n}" ${String(r.surah)===String(n)?'selected':''}>${SURAHS[n]}${s.surahs?.[n]==='done'?' ✓':''}</option>`).join('')}</select>
-        <label>النتيجة</label>
-        <select data-f="result"><option value="">—</option>${Object.entries(RESULTS).map(([k,v])=>`<option value="${k}" ${r.result===k?'selected':''}>${v}</option>`).join('')}</select>
-      </div>
-      <label>ملاحظة</label><textarea data-f="note" placeholder="اكتبي ملاحظتك...">${esc(r.note)}</textarea>
-    </div>`;
-  }
-  $('#v-today').innerHTML = h; bindToday();
+function subLine(s){
+  const nx = nextSurah(s);
+  return `محفوظ ${doneCount(s)} من ${TOTAL}` + (nx ? ` · التالي: ${SURAHS[nx]}` : ' · ختم جزء عمّ');
 }
-function setRec(id, patch){
-  const sess = S.sessions[curDate] = S.sessions[curDate] || {};
+
+// ---------- تسجيل وحذف ----------
+function setRec(id, date, patch){
+  const sess = S.sessions[date] = S.sessions[date] || {};
   const r = sess[id] = {...(sess[id]||{}), ...patch};
+  if(r.present === false){ delete r.surah; delete r.result; }
   // النتيجة بتحدّث حالة السورة عند الطالب
   const st = S.students.find(x=>x.id===id);
   if(st && r.present && r.surah && (r.result==='done' || r.result==='learning')){
@@ -240,34 +302,106 @@ function setRec(id, patch){
   }
   save();
 }
-function bindToday(){
-  const di = $('#dateIn');
-  if(di) di.onchange = () => { if(di.value){ curDate = di.value; renderToday(); } };
-  const pv = $('#prevDay');
-  if(pv) pv.onclick = () => { const d = parseIso(curDate); do{ d.setDate(d.getDate()-1); } while(!CLASS_DAYS.includes(d.getDay())); curDate = iso(d); renderToday(); };
-  const ap = $('#allPresent');
-  if(ap) ap.onclick = () => { for(const s of S.students){ const r = S.sessions[curDate]?.[s.id]; if(!r || r.present == null) setRec(s.id,{present:true}); } renderToday(); toast('تم تسجيل الباقي حاضر'); };
-  const sd = $('#shareDay');
-  if(sd) sd.onclick = shareDay;
-  document.querySelectorAll('#v-today .card[data-id]').forEach(card => {
-    const id = card.dataset.id;
-    card.querySelectorAll('[data-act]').forEach(b => b.onclick = () => {
+function clearRec(id, date){
+  const r = S.sessions[date]?.[id];
+  if(!r) return;
+  delete S.sessions[date][id];
+  if(!Object.keys(S.sessions[date]).length) delete S.sessions[date];
+  // إذا السورة انعلّمت محفوظة من هاي الحصة بس، بترجع لحالتها من باقي الحصص
+  const st = S.students.find(x=>x.id===id);
+  if(st && r.surah && r.result && st.surahs?.[r.surah]){
+    const others = recordsOf(id).filter(x => String(x.surah) === String(r.surah) && x.present);
+    if(others.some(x => x.result === 'done')) st.surahs[r.surah] = 'done';
+    else if(others.some(x => x.result === 'learning')) st.surahs[r.surah] = 'learning';
+    else if(r.result === 'done' || r.result === 'learning') delete st.surahs[r.surah];
+  }
+  save();
+}
+
+// ---------- شاشة الحضور ----------
+function renderToday(){
+  const sess = S.sessions[curDate] || {};
+  const all = sorted();
+  const list = all.filter(s => match(s, qToday));
+  const pres = all.filter(s => sess[s.id]?.present === true).length;
+  const abs = all.filter(s => sess[s.id]?.present === false).length;
+  const w = warned();
+  const day = parseIso(curDate).getDay();
+  let h = `<div class="card datebar">
+      <button class="iconbtn" id="dNext" aria-label="الحصة التالية">${ICON.right}</button>
+      <div class="d"><b>${niceDate(curDate)}</b><span>${parseIso(curDate).getFullYear()} · ${curDate === iso(new Date()) ? 'اليوم' : 'حصة سابقة'}</span></div>
+      <button class="iconbtn" id="dPrev" aria-label="الحصة السابقة">${ICON.left}</button>
+      <label class="iconbtn datepick" aria-label="اختيار تاريخ" style="margin:0">${ICON.cal}<input type="date" id="dateIn" value="${curDate}"></label>
+    </div>`;
+  if(!CLASS_DAYS.includes(day)) h += `<div class="info">هذا اليوم مش سبت ولا اثنين. إذا الحصة انعملت فيه، كمّلي عادي.</div>`;
+  if(w.length) h += `<div class="alert">⚠️ وصلوا ${WARN_AFTER} غيابات أو أكثر: ${w.map(s=>esc(s.name)).join('، ')}</div>`;
+  if(!all.length){
+    h += `<div class="card empty"><p>ما في طلاب لسا.</p><div class="row" style="justify-content:center">
+      <button class="btn btn-main" id="goAdd">إضافة طالب</button><button class="btn btn-soft" id="goImp">استيراد من Excel</button></div></div>`;
+    $('#v-today').innerHTML = h;
+    bindDate();
+    $('#goAdd').onclick = () => { go('students'); addStudent(); };
+    $('#goImp').onclick = () => go('more');
+    return;
+  }
+  h += `<div class="stats"><div class="stat"><b style="color:var(--ok)">${pres}</b><span>حاضر</span></div>
+      <div class="stat"><b style="color:var(--bad)">${abs}</b><span>غائب</span></div>
+      <div class="stat"><b>${all.length - pres - abs}</b><span>لم يُسجَّل</span></div></div>
+    <div class="search">${ICON.search}<input id="qToday" type="search" placeholder="ابحثي عن اسم الطالب" value="${esc(qToday)}" autocomplete="off"></div>
+    <div class="row"><button class="btn btn-soft grow" id="allPresent">الباقي حاضر</button><button class="btn grow" id="shareDay">ملخص الحصة</button></div>
+    <div class="list" id="todayList">${todayRows(list, sess)}</div>`;
+  $('#v-today').innerHTML = h;
+  bindDate();
+  const q = $('#qToday');
+  q.oninput = () => { qToday = q.value; $('#todayList').innerHTML = todayRows(sorted().filter(s => match(s, qToday)), S.sessions[curDate] || {}); bindRows(); };
+  $('#allPresent').onclick = () => {
+    let n = 0;
+    for(const s of S.students){ if(!isMarked(S.sessions[curDate]?.[s.id])){ setRec(s.id, curDate, {present:true}); n++; } }
+    renderAll(); toast(n ? 'انسجل ' + n + ' حاضر' : 'الكل مسجّل');
+  };
+  $('#shareDay').onclick = shareDay;
+  bindRows();
+}
+function todayRows(list, sess){
+  if(!list.length) return `<div class="empty">ما في طالب بهذا الاسم.</div>`;
+  return list.map(s => {
+    const r = sess[s.id] || {};
+    const ab = absentCount(s.id);
+    const extra = r.present && r.surah ? ` · سمّع ${SURAHS[r.surah]}` : '';
+    return `<div class="item" data-id="${s.id}">
+      <button class="who" data-open>
+        <span class="avatar">${esc(initial(s.name))}</span>
+        <span class="grow"><span class="n">${esc(s.name)}${ab>=WARN_AFTER?`<span class="pill p-bad">⚠️ ${ab} غيابات</span>`:''}${r.note?'<span class="pill p-lav">ملاحظة</span>':''}</span>
+        <span class="s" style="display:block">${subLine(s)}${extra}</span></span>
+      </button>
+      <div class="tog"><button class="p ${r.present===true?'on':''}" data-act="p" aria-label="حاضر">${ICON.check}</button>
+        <button class="a ${r.present===false?'on':''}" data-act="a" aria-label="غائب">${ICON.x}</button></div>
+    </div>`;
+  }).join('');
+}
+function bindRows(){
+  document.querySelectorAll('#todayList .item').forEach(row => {
+    const id = row.dataset.id;
+    row.querySelector('[data-open]').onclick = () => openStudent(id, curDate);
+    row.querySelectorAll('[data-act]').forEach(b => b.onclick = () => {
       const cur = S.sessions[curDate]?.[id]?.present;
       const val = b.dataset.act === 'p';
-      setRec(id, {present: cur === val ? null : val});
-      renderToday();
-    });
-    card.querySelectorAll('[data-f]').forEach(el => {
-      el.onchange = () => { setRec(id, {[el.dataset.f]: el.value}); if(el.tagName==='SELECT'){ renderToday(); } toast('انحفظ'); };
-      if(el.tagName==='TEXTAREA') el.oninput = () => { setRec(id, {note: el.value}); };
+      if(cur === val) clearRec(id, curDate); else setRec(id, curDate, {present:val});
+      renderAll();
     });
   });
+}
+function bindDate(){
+  const di = $('#dateIn');
+  di.onchange = () => { if(di.value){ curDate = di.value; renderAll(); } };
+  $('#dPrev').onclick = () => { curDate = shiftClassDay(curDate, -1); renderAll(); };
+  $('#dNext').onclick = () => { curDate = shiftClassDay(curDate, 1); renderAll(); };
 }
 function shareDay(){
   const sess = S.sessions[curDate] || {};
   const lines = ['حلقة جزء عمّ · ' + niceDate(curDate), ''];
   for(const s of sorted()){
-    const r = sess[s.id]; if(!r || r.present == null) continue;
+    const r = sess[s.id]; if(!isMarked(r)) continue;
     if(!r.present){ lines.push('✗ ' + s.name + ' (غائب)'); continue; }
     let t = '✓ ' + s.name;
     if(r.surah) t += ' · ' + SURAHS[r.surah];
@@ -276,104 +410,173 @@ function shareDay(){
     lines.push(t);
   }
   const text = lines.join('\n');
-  openDlg('ملخص الحصة', `<textarea id="dayTxt" style="min-height:220px" readonly>${esc(text)}</textarea>
-    <div class="row" style="margin-top:10px"><button class="btn-main grow" id="dayCopy">نسخ</button>
-    <a class="btn grow" style="text-align:center;text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(text)}">إرسال على واتساب</a></div>`);
+  openDlg('ملخص الحصة', `<textarea style="min-height:220px" readonly>${esc(text)}</textarea>
+    <div class="row"><button class="btn btn-main grow" id="dayCopy">نسخ</button>
+    <a class="btn grow" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(text)}">إرسال على واتساب</a></div>`);
   $('#dayCopy').onclick = () => copyText(text);
 }
 
 // ---------- شاشة الطلاب ----------
 function renderStudents(){
-  const list = sorted().filter(s => studentsFilter==='all' || absentCount(s.id) >= WARN_AFTER);
-  let h = `<div class="row" style="margin-bottom:12px"><button class="btn-main grow" onclick="addStudent()">+ طالب جديد</button></div>
-    <div class="tabs"><button data-f="all" class="${studentsFilter==='all'?'on':''}">الكل (${S.students.length})</button>
-    <button data-f="warn" class="${studentsFilter==='warn'?'on':''}">⚠️ عليهم تحذير (${warned().length})</button></div><div class="card">`;
-  if(!list.length) h += `<p class="muted">لا يوجد.</p>`;
-  for(const s of list){
-    const st = stats(s.id), dc = doneCount(s);
-    h += `<div class="list-item" data-id="${s.id}" style="cursor:pointer"><div class="grow">
-      <div class="stu-name">${esc(s.name)} ${st.absent>=WARN_AFTER?`<span class="badge b-warn">⚠️ غاب ${st.absent} مرات</span>`:''}</div>
-      <div class="muted">حضر ${st.present} · غاب ${st.absent} · محفوظ ${dc}/${TOTAL}</div>
-      <div class="bar"><i style="width:${Math.round(dc/TOTAL*100)}%"></i></div></div><span class="muted">◀</span></div>`;
-  }
-  h += `</div>`;
-  $('#v-students').innerHTML = h;
-  document.querySelectorAll('#v-students .tabs button').forEach(b => b.onclick = () => { studentsFilter = b.dataset.f; renderStudents(); });
-  document.querySelectorAll('#v-students .list-item').forEach(el => el.onclick = () => openStudent(el.dataset.id));
+  const all = sorted();
+  const list = all.filter(s => (studentsFilter==='all' || absentCount(s.id) >= WARN_AFTER) && match(s, qStudents));
+  $('#v-students').innerHTML = `
+    <div class="row"><button class="btn btn-main grow" id="addBtn">+ طالب جديد</button></div>
+    <div class="seg"><button data-f="all" class="${studentsFilter==='all'?'on':''}">الكل (${all.length})</button>
+      <button data-f="warn" class="${studentsFilter==='warn'?'on':''}">عليهم تحذير (${warned().length})</button></div>
+    <div class="search">${ICON.search}<input id="qStu" type="search" placeholder="ابحثي عن اسم الطالب" value="${esc(qStudents)}" autocomplete="off"></div>
+    <div class="list" id="stuList">${studentRows(list)}</div>`;
+  $('#addBtn').onclick = addStudent;
+  document.querySelectorAll('#v-students .seg button').forEach(b => b.onclick = () => { studentsFilter = b.dataset.f; renderStudents(); });
+  const q = $('#qStu');
+  q.oninput = () => { qStudents = q.value; $('#stuList').innerHTML = studentRows(sorted().filter(s => (studentsFilter==='all' || absentCount(s.id) >= WARN_AFTER) && match(s, qStudents))); bindStu(); };
+  bindStu();
 }
+function studentRows(list){
+  if(!list.length) return `<div class="empty">${S.students.length ? 'ما في نتائج.' : 'ما في طلاب لسا.'}</div>`;
+  return list.map(s => {
+    const st = stats(s.id), dc = doneCount(s);
+    return `<div class="item"><button class="who" data-id="${s.id}">
+      <span class="avatar">${esc(initial(s.name))}</span>
+      <span class="grow"><span class="n">${esc(s.name)}${st.absent>=WARN_AFTER?`<span class="pill p-bad">⚠️ ${st.absent} غيابات</span>`:''}</span>
+        <span class="s" style="display:block">حضر ${st.present} · غاب ${st.absent} · محفوظ ${dc}/${TOTAL}</span>
+        <span class="bar" style="display:block"><i style="width:${Math.round(dc/TOTAL*100)}%"></i></span></span>
+      <span class="chev">${ICON.chev}</span></button></div>`;
+  }).join('');
+}
+function bindStu(){ document.querySelectorAll('#stuList .who').forEach(el => el.onclick = () => openStudent(el.dataset.id, curDate)); }
+
+// ---------- النوافذ ----------
+const dlg = $('#dlg');
+$('#dlgClose').onclick = () => dlg.close();
+dlg.addEventListener('close', () => renderAll());
 function openDlg(title, html){ $('#dlgTitle').textContent = title; $('#dlgBody').innerHTML = html; if(!dlg.open) dlg.showModal(); }
 function studentForm(s){
-  return `<label>الاسم</label><input id="fName" value="${esc(s?.name)}">
+  return `<div><label style="margin-top:0">الاسم</label><input id="fName" value="${esc(s?.name)}">
     <label>ولي الأمر</label><input id="fGuard" value="${esc(s?.guardian)}">
     <label>رقم الهاتف</label><input id="fPhone" type="tel" inputmode="tel" value="${esc(s?.phone)}">
-    <label>ملاحظات عامة</label><textarea id="fNotes">${esc(s?.notes)}</textarea>
-    <div class="row" style="margin-top:14px"><button class="btn-main grow" id="fSave">حفظ</button></div>`;
+    <label>ملاحظات عامة</label><textarea id="fNotes">${esc(s?.notes)}</textarea></div>
+    <button class="btn btn-main" id="fSave">حفظ</button>`;
 }
 function addStudent(){
   openDlg('طالب جديد', studentForm());
   $('#fSave').onclick = () => {
     const name = $('#fName').value.trim(); if(!name) return toast('اكتبي الاسم');
     S.students.push({id:uid(), name, guardian:$('#fGuard').value.trim(), phone:$('#fPhone').value.trim(), notes:$('#fNotes').value.trim(), surahs:{}});
-    save(); dlg.close(); renderAll(); toast('انضاف');
+    save(); dlg.close(); toast('انضاف');
   };
   setTimeout(()=>$('#fName').focus(), 50);
 }
-function openStudent(id){
+
+// صفحة الطالب: حصة التاريخ المختار + السجل + خريطة الحفظ
+let sheetTab = 'hist';
+function openStudent(id, date){
   const s = S.students.find(x=>x.id===id); if(!s) return;
   const st = stats(id), dc = doneCount(s);
+  const r = S.sessions[date]?.[id] || {};
   const recs = recordsOf(id).reverse();
-  let h = `${st.absent>=WARN_AFTER?`<div class="alert">⚠️ غاب ${st.absent} حصص. تواصلي مع الأهل.</div>`:''}
-    <div class="summary"><div><b style="color:var(--ok)">${st.present}</b><span class="muted">حضور</span></div>
-    <div><b style="color:var(--bad)">${st.absent}</b><span class="muted">غياب</span></div>
-    <div><b>${dc}/${TOTAL}</b><span class="muted">سورة</span></div></div>
-    ${s.guardian||s.phone?`<p>${esc(s.guardian)} ${s.phone?`· <a href="tel:${esc(s.phone)}">${esc(s.phone)}</a> · <a href="https://wa.me/${esc(s.phone.replace(/\D/g,'').replace(/^0/,'962'))}" target="_blank">واتساب</a>`:''}</p>`:''}
-    ${s.notes?`<p class="muted">${esc(s.notes)}</p>`:''}
-    <h3>الحفظ <span class="muted">(اضغطي على السورة لتغيير حالتها)</span></h3>
-    <div class="row muted" style="margin-bottom:8px;font-size:13px"><span class="badge b-ok">محفوظة</span><span class="badge b-mid">قيد الحفظ</span><span class="badge" style="border:1px solid var(--line)">لم تبدأ</span></div>
-    <div class="surahs">${ORDER.map(n=>`<button class="surah s-${s.surahs?.[n]||'none'}" data-n="${n}">${SURAHS[n]}<small>${n}</small></button>`).join('')}</div>
-    <h3 style="margin-top:16px">سجل الحصص</h3>
-    ${recs.length?recs.map(r=>`<div class="log"><b>${niceDate(r.date)}</b> · ${r.present?'<span class="badge b-ok">حاضر</span>':'<span class="badge b-warn">غائب</span>'}
-      ${r.surah?' · '+SURAHS[r.surah]:''}${r.result?' · '+RESULTS[r.result]:''}${r.note?`<div class="muted">${esc(r.note)}</div>`:''}</div>`).join(''):'<p class="muted">لا يوجد سجل بعد.</p>'}
-    <div class="row" style="margin-top:16px"><button class="grow" id="sEdit">تعديل البيانات</button><button class="btn-danger" id="sDel">حذف</button></div>`;
+  const phone = s.phone ? esc(s.phone) : '';
+  const wa = s.phone ? s.phone.replace(/\D/g,'').replace(/^0/,'962') : '';
+  let h = `
+    ${st.absent>=WARN_AFTER?`<div class="alert">⚠️ مجموع غياباته ${st.absent}. تواصلي مع الأهل.</div>`:''}
+    <div class="stats"><div class="stat"><b style="color:var(--ok)">${st.present}</b><span>حضور</span></div>
+      <div class="stat"><b style="color:var(--bad)">${st.absent}</b><span>غياب</span></div>
+      <div class="stat"><b>${dc}<small style="font-size:14px;color:var(--muted)">/${TOTAL}</small></b><span>سورة محفوظة</span></div></div>
+    ${s.guardian||s.phone?`<div class="row muted">${esc(s.guardian)}${phone?` <span style="user-select:all;direction:ltr">${phone}</span>
+      <a class="btn btn-sm" href="tel:${phone}">اتصال</a><a class="btn btn-sm" target="_blank" rel="noopener" href="https://wa.me/${wa}">واتساب</a>`:''}</div>`:''}
+    ${s.notes?`<div class="muted">${esc(s.notes)}</div>`:''}
+
+    <div class="box">
+      <div class="row"><h3 class="grow">حصة ${niceDate(date)}</h3>${isMarked(r)?'<button class="btn btn-sm btn-danger" id="recDel">مسح هاي الحصة</button>':''}</div>
+      <div class="chips" style="margin-top:10px"><button class="c-p ${r.present===true?'on':''}" data-att="p">حاضر</button><button class="c-a ${r.present===false?'on':''}" data-att="a">غائب</button></div>
+      <div class="${r.present===true?'':'hide'}">
+        <label>السورة اللي سمّعها</label>
+        <select id="rSurah"><option value="">اختاري السورة</option>${ORDER.map(n=>`<option value="${n}" ${String(r.surah)===String(n)?'selected':''}>${SURAHS[n]}${s.surahs?.[n]==='done'?' ✓':''}</option>`).join('')}</select>
+        <label>النتيجة</label>
+        <div class="chips">${Object.entries(RESULTS).map(([k,v])=>`<button data-res="${k}" class="${r.result===k?'on':''}">${v}</button>`).join('')}</div>
+      </div>
+      <div class="${isMarked(r)?'':'hide'}"><label>ملاحظة</label><textarea id="rNote" placeholder="اكتبي ملاحظتك...">${esc(r.note)}</textarea></div>
+    </div>
+
+    <div class="seg"><button data-tab="hist" class="${sheetTab==='hist'?'on':''}">سجل الحضور والحفظ</button><button data-tab="map" class="${sheetTab==='map'?'on':''}">خريطة السور</button></div>`;
+  if(sheetTab === 'hist'){
+    h += recs.length ? `<div class="hist">${recs.map(x=>`<div class="h">
+        <span class="dot ${x.present?'ok':'bad'}"></span>
+        <div class="t"><b>${niceDate(x.date)}</b> <span class="muted">${parseIso(x.date).getFullYear()}</span>
+          <div class="meta">${x.present?'<span class="pill p-ok">حاضر</span>':'<span class="pill p-bad">غائب</span>'}
+            ${x.surah?`<span class="sname">${SURAHS[x.surah]}</span>`:''}
+            ${x.result?`<span class="pill ${x.result==='done'?'p-ok':x.result==='learning'?'p-lav':'p-brand'}">${RESULTS[x.result]}</span>`:''}</div>
+          ${x.note?`<div class="note">${esc(x.note)}</div>`:''}</div>
+        <div class="acts"><button class="btn btn-sm" data-edit="${x.date}">تعديل</button><button class="btn btn-sm btn-danger" data-del="${x.date}">مسح</button></div>
+      </div>`).join('')}</div>` : `<div class="empty">لا يوجد سجل بعد.</div>`;
+  } else {
+    h += `<div class="legend"><span class="pill p-ok">محفوظة</span><span class="pill p-lav">قيد الحفظ</span><span class="pill p-brand">لم تبدأ</span>
+        <span class="muted">اضغطي على السورة لتغيير حالتها</span></div>
+      <div class="surahs">${ORDER.map(n=>`<button class="surah s-${s.surahs?.[n]||'none'}" data-n="${n}"><span class="sname">${SURAHS[n]}</span><small>${n}</small></button>`).join('')}</div>`;
+  }
+  h += `<div class="row"><button class="btn grow" id="sEdit">تعديل بيانات الطالب</button><button class="btn btn-danger" id="sDel">حذف الطالب</button></div>`;
+  const scroll = dlg.open ? $('#dlgBody').parentElement.scrollTop : 0;
   openDlg(s.name, h);
+  dlg.scrollTop = scroll;
+  const again = () => openStudent(id, date);
+
+  document.querySelectorAll('#dlgBody [data-att]').forEach(b => b.onclick = () => {
+    const val = b.dataset.att === 'p';
+    if(r.present === val) clearRec(id, date); else setRec(id, date, {present:val});
+    again();
+  });
+  const rs = $('#rSurah'); if(rs) rs.onchange = () => { setRec(id, date, {surah: rs.value}); toast('انحفظ'); again(); };
+  document.querySelectorAll('#dlgBody [data-res]').forEach(b => b.onclick = () => {
+    setRec(id, date, {result: r.result === b.dataset.res ? '' : b.dataset.res}); toast('انحفظ'); again();
+  });
+  const rn = $('#rNote'); if(rn){ rn.oninput = () => setRec(id, date, {note: rn.value}); rn.onchange = () => { toast('انحفظت الملاحظة'); again(); }; }
+  const rd = $('#recDel'); if(rd) rd.onclick = async () => {
+    if(!(await askConfirm('مسح حضور وحفظ ' + s.name + ' ليوم ' + niceDate(date) + '؟ بتقدري تدخليها من جديد بعدين.'))) return;
+    clearRec(id, date); toast('انمسحت'); again();
+  };
+  document.querySelectorAll('#dlgBody [data-tab]').forEach(b => b.onclick = () => { sheetTab = b.dataset.tab; again(); });
+  document.querySelectorAll('#dlgBody [data-edit]').forEach(b => b.onclick = () => { openStudent(id, b.dataset.edit); dlg.scrollTop = 0; });
+  document.querySelectorAll('#dlgBody [data-del]').forEach(b => b.onclick = async () => {
+    if(!(await askConfirm('مسح حصة ' + niceDate(b.dataset.del) + ' من سجل ' + s.name + '؟'))) return;
+    clearRec(id, b.dataset.del); toast('انمسحت'); again();
+  });
   document.querySelectorAll('#dlgBody .surah').forEach(b => b.onclick = () => {
     const n = b.dataset.n, cyc = {none:'learning', learning:'done', done:'none'};
     const nv = cyc[s.surahs?.[n] || 'none'];
     s.surahs = s.surahs || {};
     if(nv === 'none') delete s.surahs[n]; else s.surahs[n] = nv;
-    save(); openStudent(id); renderAll(true);
+    save(); again();
   });
   $('#sEdit').onclick = () => {
     openDlg('تعديل: ' + s.name, studentForm(s));
     $('#fSave').onclick = () => {
       const name = $('#fName').value.trim(); if(!name) return toast('اكتبي الاسم');
       Object.assign(s, {name, guardian:$('#fGuard').value.trim(), phone:$('#fPhone').value.trim(), notes:$('#fNotes').value.trim()});
-      save(); renderAll(); openStudent(id); toast('انحفظ');
+      save(); openStudent(id, date); toast('انحفظ');
     };
   };
   $('#sDel').onclick = async () => {
     if(!(await askConfirm('حذف ' + s.name + ' مع كل سجله؟'))) return;
     S.students = S.students.filter(x=>x.id!==id);
-    for(const d in S.sessions) delete S.sessions[d][id];
-    save(); dlg.close(); renderAll(); toast('انحذف');
+    for(const d in S.sessions){ delete S.sessions[d][id]; if(!Object.keys(S.sessions[d]).length) delete S.sessions[d]; }
+    save(); dlg.close(); toast('انحذف');
   };
 }
 
-// ---------- المزيد: استيراد وتصدير ونسخ احتياطي ----------
+// ---------- ملفات ونسخ: استيراد وتصدير ونسخ احتياطي ----------
 function renderMore(){
   $('#v-more').innerHTML = `
   <div class="card"><h2>استيراد أسماء الطلاب من Excel</h2>
-    <p class="muted">ملف Excel أو CSV. الاسم بالعمود الأول، ولو في عمود ثاني لرقم الهاتف بيتقرأ كمان. الصف الأول إذا كان عنوان بيتجاهل. الأسماء المكررة ما بتنضاف مرتين.</p>
-    <button class="btn-main" id="impXl">اختاري ملف Excel</button></div>
+    <p class="muted">ملف Excel أو CSV. الاسم بالعمود الأول، ورقم الهاتف بالعمود الثاني إذا موجود. صف العناوين بيتجاهل، والأسماء المكررة ما بتنضاف مرتين.</p>
+    <button class="btn btn-main" id="impXl">اختاري ملف Excel</button></div>
   <div class="card"><h2>تقرير Excel</h2>
-    <p class="muted">ملف فيه كل طالب: الحضور، الغياب، عدد السور المحفوظة، وسجل كل حصة.</p>
-    <div class="row"><button id="expXl">تنزيل التقرير</button><button id="expCopy">نسخ التقرير (للصق بـ Excel)</button></div></div>
+    <p class="muted">لكل طالب: الحضور، الغياب، عدد السور المحفوظة، وسجل كل حصة.</p>
+    <div class="row"><button class="btn btn-soft" id="expXl">تنزيل التقرير</button><button class="btn" id="expCopy">نسخ التقرير للصق بـ Excel</button></div></div>
   <div class="card"><h2>النسخة الاحتياطية</h2>
-    <p class="muted">البيانات محفوظة على هذا التلفون فقط. خذي نسخة احتياطية كل أسبوع وابعتيها لحالك على واتساب، لأنه إذا انمسح المتصفح أو ضاع التلفون بتروح البيانات.</p>
-    <div class="row"><button class="btn-main" id="bkOut">خذي نسخة احتياطية (ملف)</button><button id="bkIn">استرجاع من ملف</button></div>
-    <div class="row" style="margin-top:8px"><button id="bkCopy">نسخ النسخة كنص</button><button id="bkPaste">استرجاع من نص</button></div>
-    <p class="muted">إذا زر الملف ما نزّل شي، استعملي «نسخ النسخة كنص» والصقيه برسالة واتساب لحالك.</p></div>
-  <div class="card"><h2>معلومات</h2><p class="muted">أيام الدوام: السبت والاثنين. التحذير بيطلع لما يصير مجموع غيابات الطالب ${WARN_AFTER} حصص أو أكثر. سور جزء عمّ: ${TOTAL} سورة (من الناس للنبأ).</p></div>`;
+    <p class="muted">البيانات محفوظة على هذا التلفون فقط. خذي نسخة احتياطية كل أسبوع وابعتيها لحالك على واتساب.</p>
+    <div class="row"><button class="btn btn-main" id="bkOut">خذي نسخة احتياطية</button><button class="btn" id="bkIn">استرجاع من ملف</button></div>
+    <div class="row" style="margin-top:8px"><button class="btn btn-sm" id="bkCopy">نسخ النسخة كنص</button><button class="btn btn-sm" id="bkPaste">استرجاع من نص</button></div></div>
+  <p class="muted" style="text-align:center">أيام الدوام: السبت والاثنين · التحذير عند ${WARN_AFTER} غيابات · ${TOTAL} سورة من الناس للنبأ</p>`;
   $('#impXl').onclick = () => pickFile('.xlsx,.xls,.csv', importStudents);
   $('#expXl').onclick = () => exportReport(false);
   $('#expCopy').onclick = () => exportReport(true);
@@ -381,9 +584,9 @@ function renderMore(){
   $('#bkIn').onclick = () => pickFile('.json,application/json', f => f.text().then(restoreText));
   $('#bkCopy').onclick = () => copyText(JSON.stringify({app:'quran-circle', version:1, savedAt:new Date().toISOString(), data:S}));
   $('#bkPaste').onclick = () => {
-    openDlg('استرجاع من نص', `<label>الصقي نص النسخة الاحتياطية هون</label><textarea id="pasteIn" style="min-height:160px"></textarea>
-      <div class="row" style="margin-top:10px"><button class="btn-main grow" id="pasteGo">استرجاع</button></div>`);
-    $('#pasteGo').onclick = () => { dlg.close(); restoreText($('#pasteIn').value); };
+    openDlg('استرجاع من نص', `<div><label style="margin-top:0">الصقي نص النسخة الاحتياطية هون</label><textarea id="pasteIn" style="min-height:160px"></textarea></div>
+      <button class="btn btn-main" id="pasteGo">استرجاع</button>`);
+    $('#pasteGo').onclick = () => { const v = $('#pasteIn').value; dlg.close(); restoreText(v); };
   };
 }
 function pickFile(accept, cb){ const f = $('#fileIn'); f.value = ''; f.accept = accept; f.onchange = () => f.files[0] && cb(f.files[0]); f.click(); }
@@ -428,7 +631,7 @@ async function exportReport(asText){
   }
   const log = [['التاريخ','الاسم','الحضور','السورة','النتيجة','ملاحظة']];
   for(const d of dates) for(const s of sorted()){
-    const r = S.sessions[d][s.id]; if(!r || r.present == null) continue;
+    const r = S.sessions[d][s.id]; if(!isMarked(r)) continue;
     log.push([d, s.name, r.present?'حاضر':'غائب', r.surah?SURAHS[r.surah]:'', r.result?RESULTS[r.result]:'', r.note||'']);
   }
   if(asText){ copyText(sum.concat([[]], log).map(r => r.join('\t')).join('\n')); return; }
@@ -458,28 +661,25 @@ async function downloadBlob(blob, filename){
 }
 function backup(){
   downloadBlob(new Blob([JSON.stringify({app:'quran-circle', version:1, savedAt:new Date().toISOString(), data:S})], {type:'application/json'}), 'نسخة-الحلقة-' + iso(new Date()) + '.json');
-  try{ localStorage.setItem(KEY + '-lastBackup', iso(new Date())); }catch(e){}
 }
 async function restoreText(txt){
-  try{
-    const j = JSON.parse(txt); const d = j.data || j;
-    if(!Array.isArray(d.students) || typeof d.sessions !== 'object') throw 0;
-    if(!(await askConfirm('استرجاع النسخة بيستبدل البيانات الحالية (' + d.students.length + ' طالب). متأكدة؟'))) return;
-    S = d; save(); renderAll(); toast('تم الاسترجاع');
-  }catch(e){ toast('الملف مش نسخة احتياطية صحيحة'); }
+  let d;
+  try{ const j = JSON.parse(txt); d = j.data || j; if(!Array.isArray(d.students) || typeof d.sessions !== 'object') throw 0; }
+  catch(e){ return toast('الملف مش نسخة احتياطية صحيحة'); }
+  if(!(await askConfirm('استرجاع النسخة بيستبدل البيانات الحالية (' + d.students.length + ' طالب). متأكدة؟'))) return;
+  S = d; save(); renderAll(); toast('تم الاسترجاع');
 }
 
 // ---------- تنقّل ----------
-let curView = 'today';
 function go(v){
   curView = v;
   document.querySelectorAll('nav button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
   ['today','students','more'].forEach(x => $('#v-' + x).classList.toggle('hide', x !== v));
   renderAll(); scrollTo(0,0);
 }
-function renderAll(keepDlg){
+function renderAll(){
   const n = warned().length;
-  $('#hsub').textContent = S.students.length + ' طالب' + (n ? ' · ⚠️ ' + n + ' عليهم تحذير' : '');
+  $('#hsub').textContent = S.students.length + ' طالب' + (n ? ' · ' + n + ' عليهم تحذير غياب' : '') + ' · السبت والاثنين';
   if(curView === 'today') renderToday();
   if(curView === 'students') renderStudents();
   if(curView === 'more') renderMore();
