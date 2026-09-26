@@ -53,7 +53,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 #zoomLayer{transform-origin:50% 0;will-change:auto}
 
 /* header */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;align-items:center;gap:12px;padding-block:14px 12px;border-bottom:1px solid var(--line)}
+.top{position:sticky;top:var(--sa-top);z-index:20;background:var(--bg);display:flex;align-items:center;gap:12px;padding-block:14px 12px;border-bottom:1px solid var(--line)}
 .top .who{flex:1;min-width:0}
 .top .role{font-size:15px;color:var(--ink-2);font-weight:500}
 .top .name{font-family:var(--f-d);font-size:24px;font-weight:700;line-height:1.35;margin:0}
@@ -135,16 +135,16 @@ input,select,textarea{min-width:0;max-width:100%}
 .empty .t{color:var(--ink);font-weight:700;font-size:20px}
 
 /* tabs + fab */
-.tabs{position:fixed;inset-inline:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs{position:fixed;inset-inline:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding-bottom:var(--sa-bottom)}
 .tabs .in{max-width:600px;margin-inline:auto;display:grid;grid-template-columns:repeat(3,1fr)}
 .tab{min-height:70px;border:0;background:transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:15px;font-weight:600;color:var(--ink-2);cursor:pointer;position:relative}
 .tab svg{width:26px;height:26px}
 .tab[aria-current="page"]{color:var(--accent)}
 .tab .dot{position:absolute;top:10px;inset-inline-end:calc(50% - 24px);min-width:22px;height:22px;border-radius:11px;background:var(--danger);color:#fff;font-size:13px;display:grid;place-items:center;padding-inline:6px}
-.fab{position:fixed;z-index:31;bottom:calc(86px + env(safe-area-inset-bottom,0px));inset-inline-start:max(16px,calc(50% - 284px));min-height:60px;border-radius:30px;padding-inline:24px;box-shadow:var(--shadow)}
+.fab{position:fixed;z-index:31;bottom:calc(86px + var(--sa-bottom));inset-inline-start:max(16px,calc(50% - 284px));min-height:60px;border-radius:30px;padding-inline:24px;box-shadow:var(--shadow)}
 
 /* detail */
-.dhead{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);display:flex;align-items:center;gap:10px;padding-block:12px;border-bottom:1px solid var(--line)}
+.dhead{position:sticky;top:var(--sa-top);z-index:20;background:var(--bg);display:flex;align-items:center;gap:10px;padding-block:12px;border-bottom:1px solid var(--line)}
 .dhead .ttl{flex:1;min-width:0;font-family:var(--f-d);font-weight:700;font-size:21px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .back{min-height:52px;padding-inline:14px 18px;border-radius:26px}
 .sec{margin-top:26px}
@@ -155,7 +155,7 @@ input,select,textarea{min-width:0;max-width:100%}
 .when .time{font-size:22px;font-weight:600}
 .when .rel{font-size:16px;opacity:.9}
 .when.none{background:var(--surface-2);color:var(--ink-2)}
-.savebar{position:fixed;inset-inline:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}
+.savebar{position:fixed;inset-inline:0;bottom:0;z-index:30;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px calc(12px + var(--sa-bottom))}
 .savebar .in{max-width:568px;margin-inline:auto;display:flex;gap:12px;align-items:center}
 .savebar .st{font-size:15px;color:var(--ink-2);min-width:0;flex:1}
 .savebar .btn{flex:none;min-width:170px}
@@ -203,10 +203,10 @@ input,select,textarea{min-width:0;max-width:100%}
 .cal .dy.sel .c{background:var(--accent-ink);color:var(--accent)}
 
 /* toast + viewer + read panel */
-#toast{position:fixed;z-index:60;inset-inline:16px;top:calc(12px + env(safe-area-inset-top,0px));max-width:560px;margin-inline:auto;background:var(--ink);color:var(--bg);border-radius:14px;padding:14px 18px;font-weight:600;font-size:17px;box-shadow:var(--shadow);transform:translateY(-140%);opacity:0;transition:transform 240ms var(--ease-drawer),opacity 200ms ease;pointer-events:none}
+#toast{position:fixed;z-index:60;inset-inline:16px;top:calc(12px + var(--sa-top));max-width:560px;margin-inline:auto;background:var(--ink);color:var(--bg);border-radius:14px;padding:14px 18px;font-weight:600;font-size:17px;box-shadow:var(--shadow);transform:translateY(-140%);opacity:0;transition:transform 240ms var(--ease-drawer),opacity 200ms ease;pointer-events:none}
 #toast.on{transform:none;opacity:1}
 #viewer{position:fixed;inset:0;z-index:70;background:rgba(6,10,9,.94);display:flex;flex-direction:column}
-#viewer .vbar{display:flex;gap:10px;justify-content:space-between;padding:calc(12px + env(safe-area-inset-top,0px)) 16px 12px;color:#fff}
+#viewer .vbar{display:flex;gap:10px;justify-content:space-between;padding:calc(12px + var(--sa-top)) 16px 12px;color:#fff}
 #viewer .vbar .btn{background:rgba(255,255,255,.12);color:#fff;border-color:transparent}
 #viewer .stage{flex:1;display:grid;place-items:center;overflow:hidden;padding:12px}
 #viewer img{max-width:100%;max-height:100%;object-fit:contain;transform-origin:50% 50%;user-select:none;-webkit-user-drag:none}
@@ -217,7 +217,7 @@ input,select,textarea{min-width:0;max-width:100%}
 .kv dd{margin:0;overflow-wrap:anywhere}
 /* lock */
 body.locked #app, body.locked #tabs, body.locked #fab{display:none!important}
-#lock{position:fixed;inset:0;z-index:90;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:calc(24px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px));overflow:auto}
+#lock{position:fixed;inset:0;z-index:90;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:calc(24px + var(--sa-top)) 16px calc(24px + var(--sa-bottom));overflow:auto}
 #lock .lk-ic{width:64px;height:64px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
 #lock .lk-ic svg{width:30px;height:30px}
 #lock .lk-name{font-family:var(--f-d);font-size:24px;font-weight:700;text-align:center;line-height:1.4}
@@ -244,6 +244,9 @@ body.locked #app, body.locked #tabs, body.locked #fab{display:none!important}
 }
 
 html,body{min-height:100%}
+:root{--sa-top:var(--safe-area-inset-top,env(safe-area-inset-top,0px));--sa-bottom:var(--safe-area-inset-bottom,env(safe-area-inset-bottom,0px));--sa-left:var(--safe-area-inset-left,env(safe-area-inset-left,0px));--sa-right:var(--safe-area-inset-right,env(safe-area-inset-right,0px))}
+#app{padding-top:var(--sa-top)}
+body::before{content:"";position:fixed;inset:0 0 auto 0;height:var(--sa-top);background:var(--bg);z-index:35;pointer-events:none}
 [hidden]{display:none!important}
 img{max-width:100%}
 .set-row{display:flex;flex-direction:column;gap:10px}
@@ -380,6 +383,9 @@ async function loadAll(){
   S.clients = (await IDB.all('clients')) || [];
   S.customTypes = (await IDB.get('kv','types')) || [];
   S.lastBackup = (await IDB.get('kv','lastBackup')) || 0;
+  S.nudgeSnooze = (await IDB.get('kv','nudgeSnooze')) || 0;
+  S.firstUse = (await IDB.get('kv','firstUse')) || 0;
+  if(!S.firstUse){ S.firstUse=Date.now(); try{ await IDB.put('kv',S.firstUse,'firstUse') }catch(e){} }
   S.ready = true;
 }
 async function persist(c){
@@ -496,10 +502,13 @@ function installBanner(){
   return `<div class="note banner" style="margin-top:16px"><span>ثبّت التطبيق على الشاشة الرئيسية حتى ينفتح زي أي تطبيق.</span><button class="btn primary" id="installBtn"><i data-lucide="download"></i>ثبّت التطبيق</button></div>`;
 }
 function backupNudge(){
-  if(!S.clients.length) return '';
-  const days = S.lastBackup? daysBetween(new Date(S.lastBackup),new Date()) : null;
-  if(days!==null && days<14) return '';
-  return `<div class="note warn banner" style="margin-top:16px"><span>${days===null?'ما في نسخة احتياطية لسا.':'صار لك '+days+' يوم بدون نسخة احتياطية.'} البيانات محفوظة على هذا التلفون بس.</span><button class="btn soft" id="backupNow"><i data-lucide="download"></i>خذ نسخة</button></div>`;
+  if(!S.clients.length || !S.firstUse) return '';
+  const now=new Date();
+  if(daysBetween(new Date(S.firstUse),now)<30) return '';
+  const last=Math.max(S.lastBackup||0, S.nudgeSnooze||0);
+  if(last && daysBetween(new Date(last),now)<30) return '';
+  const days = S.lastBackup? daysBetween(new Date(S.lastBackup),now) : null;
+  return `<div class="note warn banner" style="margin-top:16px"><span>${days===null?'ما في نسخة احتياطية لسا.':'صار لك '+days+' يوم بدون نسخة احتياطية.'} البيانات محفوظة على هذا التلفون بس.</span><span class="row" style="gap:8px"><button class="btn soft" id="backupNow"><i data-lucide="download"></i>خذ نسخة</button><button class="btn" id="snoozeBackup">لاحقاً</button></span></div>`;
 }
 
 /* ---------- home ---------- */
@@ -633,7 +642,7 @@ async function renderSettings(v){
 
   <section class="sec"><h2><i data-lucide="hard-drive-download"></i>النسخة الاحتياطية</h2>
     <div class="panel set-row">
-      <p style="margin:0">البطاقات والوثائق محفوظة على هذا التلفون فقط. خذ نسخة كل أسبوع وابعتها لحالك على الواتساب أو الإيميل.</p>
+      <p style="margin:0">البطاقات والوثائق محفوظة على هذا التلفون فقط. خذ نسخة مرة بالشهر وابعتها لحالك على الواتساب أو الإيميل.</p>
       <p class="small muted" style="margin:0" id="lastBk">${S.lastBackup? 'آخر نسخة: '+esc(fDate.format(new Date(S.lastBackup))) : 'ما في نسخة احتياطية لسا.'}</p>
       <button class="btn primary block" id="backupNow"><i data-lucide="download"></i>خذ نسخة احتياطية</button>
       <button class="btn block" id="restoreBtn"><i data-lucide="upload"></i>استرجاع من نسخة</button>
@@ -910,7 +919,24 @@ async function deleteFile(fid){
 }
 
 /* ---------- dictation ---------- */
+async function dictateNative(){
+  const ta=$('#f-summary'), SRp=P.SpeechRecognition;
+  try{
+    const av=await SRp.available();
+    if(!av || !av.available){ toast('الإملاء غير متوفر على هذا التلفون. استخدم مايك الكيبورد.',6000); $('#dictHint').hidden=false; ta.focus(); return }
+    let perm=await SRp.checkPermissions();
+    if(perm.speechRecognition!=='granted') perm=await SRp.requestPermissions();
+    if(perm.speechRecognition!=='granted'){ toast('اسمح للتطبيق باستخدام المايك: إعدادات التلفون ← التطبيقات ← مكتب د. طراد ← الأذونات.',8000); return }
+    const r=await SRp.start({language:'ar-JO',maxResults:1,prompt:'تكلم هلأ… ولما تخلص اسكت ثانيتين',partialResults:false,popup:true});
+    const text=r && r.matches && r.matches[0];
+    if(text){ ta.value=(ta.value?ta.value.trimEnd()+' ':'')+text; markDirty(); toast('انضاف الكلام للملخص') }
+  }catch(e){
+    const m=String((e&&e.message)||'');
+    if(!/cancel|No match|didn't understand/i.test(m)) toast('ما التقط الكلام. جرّب مرة ثانية وقرّب التلفون.',5000);
+  }
+}
 function dictate(){
+  if(NATIVE && P.SpeechRecognition) return dictateNative();
   const ta=$('#f-summary'); const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   const fallback=()=>{ $('#dictHint').hidden=false; ta.focus(); };
   if(!SR){ fallback(); return }
@@ -1147,6 +1173,7 @@ document.addEventListener('click',async e=>{
   if(t.id==='backBtn'){ if(S.view==='settings'){ S.view='home'; render(); return } return goBack() }
   if(t.id==='saveBtn') return saveAndAlarm();
   if(t.id==='backupNow') return doBackup();
+  if(t.id==='snoozeBackup'){ S.nudgeSnooze=Date.now(); try{ await IDB.put('kv',S.nudgeSnooze,'nudgeSnooze') }catch(e){} render(); return }
   if(t.id==='testAlarm') return testAlarm();
   if(t.id==='installBtn' && installEvt){ const ev=installEvt; installEvt=null; try{ await ev.prompt() }catch(err){} render(); return }
   if(t.id==='restoreBtn'){ $('#restoreInput').click(); return }

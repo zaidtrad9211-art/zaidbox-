@@ -1,5 +1,5 @@
 // Offline shell: the app works without internet once it has been opened one time.
-const VERSION = 'tarrad-v3';
+const VERSION = 'tarrad-v4';
 const SHELL = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png', './favicon-32.png', './vendor/lucide.min.js'];
 
 self.addEventListener('install', e => {
