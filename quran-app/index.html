@@ -16,17 +16,22 @@
   --bad:#C0392B; --bad-soft:#FBE3E0; --warn:#B7791F; --warn-soft:#FDF1D8;
 }
 @media (prefers-color-scheme: dark){
-  :root{
+  :root:not([data-theme="light"]){
     --bg:#121816; --card:#1B2321; --ink:#E8EEEC; --muted:#9AA7A3; --line:#2C3633;
     --brand:#3FB39C; --brand-soft:#1D3A34; --ok:#4CC27E; --ok-soft:#183325;
     --bad:#EF6B5C; --bad-soft:#3A1E1B; --warn:#E3A941; --warn-soft:#382C14;
-  }
+   color-scheme:dark;}
 }
+:root[data-theme="dark"]{
+    --bg:#121816; --card:#1B2321; --ink:#E8EEEC; --muted:#9AA7A3; --line:#2C3633;
+    --brand:#3FB39C; --brand-soft:#1D3A34; --ok:#4CC27E; --ok-soft:#183325;
+    --bad:#EF6B5C; --bad-soft:#3A1E1B; --warn:#E3A941; --warn-soft:#382C14;
+   color-scheme:dark;}
 *{box-sizing:border-box}
 html,body{margin:0}
 body{background:var(--bg);color:var(--ink);font-family:"Segoe UI",Tahoma,system-ui,sans-serif;font-size:17px;line-height:1.5;
   padding-bottom:calc(76px + env(safe-area-inset-bottom))}
-header{position:sticky;top:0;z-index:5;background:var(--brand);color:#fff;padding:14px 16px calc(12px);padding-top:calc(12px + env(safe-area-inset-top))}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--brand);color:#fff;padding:12px 16px}
 header h1{margin:0;font-size:20px}
 header .sub{font-size:14px;opacity:.85}
 main{max-width:720px;margin:0 auto;padding:14px 16px}
@@ -43,6 +48,8 @@ h3{font-size:16px;margin:0 0 8px}
 button,.btn{font:inherit;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:10px 14px;cursor:pointer}
 .btn-main{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:700}
 .btn-danger{color:var(--bad);border-color:var(--bad)}
+.btn{display:inline-block}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
 .btn-sm{padding:6px 10px;font-size:14px}
 input,select,textarea{font:inherit;width:100%;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
 textarea{min-height:64px;resize:vertical}
@@ -104,6 +111,7 @@ dialog .dbody{padding:12px 16px 16px;max-height:75vh;overflow:auto}
 </nav>
 
 <dialog id="dlg"><div class="dhead"><h3 class="grow" id="dlgTitle" style="margin:0"></h3><button class="btn-sm" onclick="dlg.close()">إغلاق</button></div><div class="dbody" id="dlgBody"></div></dialog>
+<dialog id="cdlg"><div class="dbody"><p id="cMsg" style="font-weight:600"></p><div class="row"><button class="btn-main grow" id="cYes">نعم</button><button class="grow" id="cNo">إلغاء</button></div></div></dialog>
 <div class="toast" id="toast"></div>
 <input type="file" id="fileIn" class="hide">
 
@@ -130,7 +138,7 @@ function load(){
 function save(){
   try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast('تعذّر الحفظ! خذي نسخة احتياطية'); }
 }
-if(navigator.storage && navigator.storage.persist) navigator.storage.persist();
+try{ navigator.storage?.persist?.().catch(()=>{}); }catch(e){}
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -143,6 +151,22 @@ function defaultDate(){
   const d = new Date();
   for(let i=0;i<7;i++){ if(CLASS_DAYS.includes(d.getDay())) return iso(d); d.setDate(d.getDate()-1); }
   return iso(new Date());
+}
+function askConfirm(msg){
+  return new Promise(res => {
+    const d = $('#cdlg'); $('#cMsg').textContent = msg;
+    $('#cYes').onclick = () => { d.close(); res(true); };
+    $('#cNo').onclick = () => { d.close(); res(false); };
+    d.showModal();
+  });
+}
+function copyText(text){
+  const done = () => toast('تم النسخ');
+  try{ navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text)); }catch(e){ fallbackCopy(text); }
+}
+function fallbackCopy(text){
+  const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
+  try{ document.execCommand('copy'); toast('تم النسخ'); }catch(e){ toast('حدّدي النص وانسخيه يدوياً'); } t.remove();
 }
 function toast(msg){ const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(t._h); t._h = setTimeout(()=>t.classList.remove('show'), 1800); }
 const sorted = () => [...S.students].sort((a,b)=>a.name.localeCompare(b.name,'ar'));
@@ -256,8 +280,10 @@ function shareDay(){
     lines.push(t);
   }
   const text = lines.join('\n');
-  if(navigator.share) navigator.share({text}).catch(()=>{});
-  else navigator.clipboard.writeText(text).then(()=>toast('تم النسخ'));
+  openDlg('ملخص الحصة', `<textarea id="dayTxt" style="min-height:220px" readonly>${esc(text)}</textarea>
+    <div class="row" style="margin-top:10px"><button class="btn-main grow" id="dayCopy">نسخ</button>
+    <a class="btn grow" style="text-align:center;text-decoration:none" target="_blank" rel="noopener" href="https://wa.me/?text=${encodeURIComponent(text)}">إرسال على واتساب</a></div>`);
+  $('#dayCopy').onclick = () => copyText(text);
 }
 
 // ---------- شاشة الطلاب ----------
@@ -329,8 +355,8 @@ function openStudent(id){
       save(); renderAll(); openStudent(id); toast('انحفظ');
     };
   };
-  $('#sDel').onclick = () => {
-    if(!confirm('حذف ' + s.name + ' مع كل سجله؟')) return;
+  $('#sDel').onclick = async () => {
+    if(!(await askConfirm('حذف ' + s.name + ' مع كل سجله؟'))) return;
     S.students = S.students.filter(x=>x.id!==id);
     for(const d in S.sessions) delete S.sessions[d][id];
     save(); dlg.close(); renderAll(); toast('انحذف');
@@ -345,15 +371,24 @@ function renderMore(){
     <button class="btn-main" id="impXl">اختاري ملف Excel</button></div>
   <div class="card"><h2>تقرير Excel</h2>
     <p class="muted">ملف فيه كل طالب: الحضور، الغياب، عدد السور المحفوظة، وسجل كل حصة.</p>
-    <button id="expXl">تنزيل التقرير</button></div>
+    <div class="row"><button id="expXl">تنزيل التقرير</button><button id="expCopy">نسخ التقرير (للصق بـ Excel)</button></div></div>
   <div class="card"><h2>النسخة الاحتياطية</h2>
     <p class="muted">البيانات محفوظة على هذا التلفون فقط. خذي نسخة احتياطية كل أسبوع وابعتيها لحالك على واتساب، لأنه إذا انمسح المتصفح أو ضاع التلفون بتروح البيانات.</p>
-    <div class="row"><button class="btn-main" id="bkOut">خذي نسخة احتياطية</button><button id="bkIn">استرجاع من نسخة</button></div></div>
+    <div class="row"><button class="btn-main" id="bkOut">خذي نسخة احتياطية (ملف)</button><button id="bkIn">استرجاع من ملف</button></div>
+    <div class="row" style="margin-top:8px"><button id="bkCopy">نسخ النسخة كنص</button><button id="bkPaste">استرجاع من نص</button></div>
+    <p class="muted">إذا زر الملف ما نزّل شي، استعملي «نسخ النسخة كنص» والصقيه برسالة واتساب لحالك.</p></div>
   <div class="card"><h2>معلومات</h2><p class="muted">أيام الدوام: السبت والاثنين. التحذير بيطلع لما الطالب يغيب ${WARN_AFTER} حصص ورا بعض. سور جزء عمّ: ${TOTAL} سورة (من الناس للنبأ).</p></div>`;
   $('#impXl').onclick = () => pickFile('.xlsx,.xls,.csv', importStudents);
-  $('#expXl').onclick = exportReport;
+  $('#expXl').onclick = () => exportReport(false);
+  $('#expCopy').onclick = () => exportReport(true);
   $('#bkOut').onclick = backup;
-  $('#bkIn').onclick = () => pickFile('.json,application/json', restore);
+  $('#bkIn').onclick = () => pickFile('.json,application/json', f => f.text().then(restoreText));
+  $('#bkCopy').onclick = () => copyText(JSON.stringify({app:'quran-circle', version:1, savedAt:new Date().toISOString(), data:S}));
+  $('#bkPaste').onclick = () => {
+    openDlg('استرجاع من نص', `<label>الصقي نص النسخة الاحتياطية هون</label><textarea id="pasteIn" style="min-height:160px"></textarea>
+      <div class="row" style="margin-top:10px"><button class="btn-main grow" id="pasteGo">استرجاع</button></div>`);
+    $('#pasteGo').onclick = () => { dlg.close(); restoreText($('#pasteIn').value); };
+  };
 }
 function pickFile(accept, cb){ const f = $('#fileIn'); f.value = ''; f.accept = accept; f.onchange = () => f.files[0] && cb(f.files[0]); f.click(); }
 function loadXLSX(){
@@ -388,7 +423,7 @@ async function importStudents(file){
   });
   save(); renderAll(); toast('انضاف ' + added + ' طالب');
 }
-async function exportReport(){
+async function exportReport(asText){
   const dates = Object.keys(S.sessions).sort();
   const sum = [['الاسم','الهاتف','حضور','غياب','غياب متتالي','سور محفوظة','قيد الحفظ','السور المحفوظة']];
   for(const s of sorted()){
@@ -400,6 +435,7 @@ async function exportReport(){
     const r = S.sessions[d][s.id]; if(!r || r.present == null) continue;
     log.push([d, s.name, r.present?'حاضر':'غائب', r.surah?SURAHS[r.surah]:'', r.result?RESULTS[r.result]:'', r.note||'']);
   }
+  if(asText){ copyText(sum.concat([[]], log).map(r => r.join('\t')).join('\n')); return; }
   const name = 'تقرير-الحلقة-' + iso(new Date());
   try{
     await loadXLSX();
@@ -426,13 +462,13 @@ async function downloadBlob(blob, filename){
 }
 function backup(){
   downloadBlob(new Blob([JSON.stringify({app:'quran-circle', version:1, savedAt:new Date().toISOString(), data:S})], {type:'application/json'}), 'نسخة-الحلقة-' + iso(new Date()) + '.json');
-  localStorage.setItem(KEY + '-lastBackup', iso(new Date()));
+  try{ localStorage.setItem(KEY + '-lastBackup', iso(new Date())); }catch(e){}
 }
-async function restore(file){
+async function restoreText(txt){
   try{
-    const j = JSON.parse(await file.text()); const d = j.data || j;
+    const j = JSON.parse(txt); const d = j.data || j;
     if(!Array.isArray(d.students) || typeof d.sessions !== 'object') throw 0;
-    if(!confirm('استرجاع النسخة بيستبدل البيانات الحالية (' + d.students.length + ' طالب). متأكدة؟')) return;
+    if(!(await askConfirm('استرجاع النسخة بيستبدل البيانات الحالية (' + d.students.length + ' طالب). متأكدة؟'))) return;
     S = d; save(); renderAll(); toast('تم الاسترجاع');
   }catch(e){ toast('الملف مش نسخة احتياطية صحيحة'); }
 }
