@@ -1,0 +1,8 @@
+node_modules/
+_keys-private/
+.claude/
+.impeccable/
+*.apk
+*.aab
+*.p12
+*.jks

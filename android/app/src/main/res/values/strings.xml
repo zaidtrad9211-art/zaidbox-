@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">مكتب د. طراد</string>
+    <string name="title_activity_main">مكتب د. طراد</string>
+    <string name="package_name">com.tarradoffice.app</string>
+    <string name="custom_url_scheme">com.tarradoffice.app</string>
+</resources>

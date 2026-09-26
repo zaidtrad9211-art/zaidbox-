@@ -1,0 +1,14 @@
+{
+  "appId": "com.tarradoffice.app",
+  "appName": "مكتب د. طراد",
+  "webDir": "app",
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_notify",
+      "iconColor": "#0D5A47"
+    }
+  }
+}
