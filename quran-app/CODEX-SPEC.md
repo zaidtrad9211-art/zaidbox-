@@ -17,7 +17,7 @@ A working v1 already exists in this folder (`index.html`, vanilla JS, no build s
 ```
 
 ## Rules already implemented
-- Warning when a student has **3 consecutive absences** (`WARN_AFTER` constant): counted over recorded sessions, newest first, stops at the first "present".
+- Warning when a student has **3 or more total absences** (`WARN_AFTER` constant), counted over all recorded sessions (not consecutive).
 - Saving a session with result `done` marks that surah memorized. `learning` never downgrades a memorized surah.
 - Memorization order is 114 → 78 (An-Nas first).
 - Import students from Excel/CSV (SheetJS from jsDelivr, loaded on demand): first text cell = name, first phone-like cell = phone, header row skipped, duplicates skipped.
@@ -27,6 +27,6 @@ A working v1 already exists in this folder (`index.html`, vanilla JS, no build s
 
 ## Possible next tasks
 1. Load the real student list from the Excel file the user will send.
-2. Optional: warn on total absences in the month as well as consecutive ones.
+2. Optional: count absences per month or term instead of all-time.
 3. Optional: an ayah-level progress note for long surahs (An-Naba, An-Nazi'at, Abasa).
 4. Optional: package as an Android APK with Capacitor, the same way the root project does it (see `/.github/workflows/android.yml`).

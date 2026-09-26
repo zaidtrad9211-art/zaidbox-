@@ -122,7 +122,7 @@ const SURAHS = {78:'النبأ',79:'النازعات',80:'عبس',81:'التكو
 const ORDER = Object.keys(SURAHS).map(Number).sort((a,b)=>b-a);
 const TOTAL = ORDER.length;
 const CLASS_DAYS = [6,1]; // السبت، الاثنين
-const WARN_AFTER = 3;     // غيابات متتالية
+const WARN_AFTER = 3;     // مجموع الغيابات
 const DAYS_AR = ['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
 const RESULTS = {done:'حفظ ✓', learning:'قيد الحفظ', review:'مراجعة'};
 const KEY = 'quran-circle-v1';
@@ -175,18 +175,14 @@ const sorted = () => [...S.students].sort((a,b)=>a.name.localeCompare(b.name,'ar
 function recordsOf(id){
   return Object.keys(S.sessions).sort().map(date => ({date, ...(S.sessions[date][id]||{})})).filter(r => r.present === true || r.present === false);
 }
-function streakAbsent(id){
-  const r = recordsOf(id); let n = 0;
-  for(let i=r.length-1;i>=0;i--){ if(r[i].present === false) n++; else break; }
-  return n;
-}
+function absentCount(id){ return recordsOf(id).filter(r => r.present === false).length; }
 function stats(id){
   const r = recordsOf(id);
-  return {present:r.filter(x=>x.present).length, absent:r.filter(x=>!x.present).length, streak:streakAbsent(id)};
+  return {present:r.filter(x=>x.present).length, absent:r.filter(x=>!x.present).length};
 }
 function doneCount(st){ return ORDER.filter(n => st.surahs?.[n] === 'done').length; }
 function nextSurah(st){ return ORDER.find(n => st.surahs?.[n] !== 'done'); }
-function warned(){ return S.students.filter(s => streakAbsent(s.id) >= WARN_AFTER); }
+function warned(){ return S.students.filter(s => absentCount(s.id) >= WARN_AFTER); }
 
 // ---------- شاشة الحضور ----------
 function renderToday(){
@@ -201,7 +197,7 @@ function renderToday(){
     <button class="btn-sm" id="prevDay">◀ السابق</button></div>
     <div class="muted" style="margin-top:6px">${niceDate(curDate)}</div></div>`;
   if(!CLASS_DAYS.includes(day)) h += `<div class="info">هذا اليوم مش سبت ولا اثنين. إذا الحصة انعملت فيه عادي، كمّلي.</div>`;
-  if(w.length) h += `<div class="alert">⚠️ غابوا ${WARN_AFTER} مرات متتالية أو أكثر: ${w.map(s=>esc(s.name)).join('، ')}</div>`;
+  if(w.length) h += `<div class="alert">⚠️ غابوا ${WARN_AFTER} مرات أو أكثر: ${w.map(s=>esc(s.name)).join('، ')}</div>`;
   if(!list.length){
     h += `<div class="card"><p>ما في طلاب لسا.</p><button class="btn-main" onclick="go('students');addStudent()">أضيفي طالب</button>
       <button onclick="go('more')">استيراد من Excel</button></div>`;
@@ -214,11 +210,11 @@ function renderToday(){
     <button class="grow" id="shareDay">مشاركة ملخص اليوم</button></div>`;
   for(const s of list){
     const r = sess[s.id] || {};
-    const st = streakAbsent(s.id);
+    const st = absentCount(s.id);
     const nx = nextSurah(s);
     h += `<div class="card" data-id="${s.id}">
       <div class="row"><div class="grow"><span class="stu-name">${esc(s.name)}</span>
-        ${st>=WARN_AFTER?`<span class="badge b-warn">⚠️ غاب ${st} متتالية</span>`:''}
+        ${st>=WARN_AFTER?`<span class="badge b-warn">⚠️ غاب ${st} مرات</span>`:''}
         <div class="muted">محفوظ ${doneCount(s)}/${TOTAL}${nx?` · التالي: ${SURAHS[nx]}`:' · ختم جزء عمّ 🎉'}</div></div></div>
       <div class="att"><button class="p ${r.present===true?'on':''}" data-act="p">حاضر</button>
         <button class="a ${r.present===false?'on':''}" data-act="a">غائب</button></div>
@@ -288,7 +284,7 @@ function shareDay(){
 
 // ---------- شاشة الطلاب ----------
 function renderStudents(){
-  const list = sorted().filter(s => studentsFilter==='all' || streakAbsent(s.id) >= WARN_AFTER);
+  const list = sorted().filter(s => studentsFilter==='all' || absentCount(s.id) >= WARN_AFTER);
   let h = `<div class="row" style="margin-bottom:12px"><button class="btn-main grow" onclick="addStudent()">+ طالب جديد</button></div>
     <div class="tabs"><button data-f="all" class="${studentsFilter==='all'?'on':''}">الكل (${S.students.length})</button>
     <button data-f="warn" class="${studentsFilter==='warn'?'on':''}">⚠️ عليهم تحذير (${warned().length})</button></div><div class="card">`;
@@ -296,7 +292,7 @@ function renderStudents(){
   for(const s of list){
     const st = stats(s.id), dc = doneCount(s);
     h += `<div class="list-item" data-id="${s.id}" style="cursor:pointer"><div class="grow">
-      <div class="stu-name">${esc(s.name)} ${st.streak>=WARN_AFTER?`<span class="badge b-warn">⚠️ ${st.streak} غياب متتالي</span>`:''}</div>
+      <div class="stu-name">${esc(s.name)} ${st.absent>=WARN_AFTER?`<span class="badge b-warn">⚠️ غاب ${st.absent} مرات</span>`:''}</div>
       <div class="muted">حضر ${st.present} · غاب ${st.absent} · محفوظ ${dc}/${TOTAL}</div>
       <div class="bar"><i style="width:${Math.round(dc/TOTAL*100)}%"></i></div></div><span class="muted">◀</span></div>`;
   }
@@ -326,7 +322,7 @@ function openStudent(id){
   const s = S.students.find(x=>x.id===id); if(!s) return;
   const st = stats(id), dc = doneCount(s);
   const recs = recordsOf(id).reverse();
-  let h = `${st.streak>=WARN_AFTER?`<div class="alert">⚠️ غاب ${st.streak} حصص متتالية. تواصلي مع الأهل.</div>`:''}
+  let h = `${st.absent>=WARN_AFTER?`<div class="alert">⚠️ غاب ${st.absent} حصص. تواصلي مع الأهل.</div>`:''}
     <div class="summary"><div><b style="color:var(--ok)">${st.present}</b><span class="muted">حضور</span></div>
     <div><b style="color:var(--bad)">${st.absent}</b><span class="muted">غياب</span></div>
     <div><b>${dc}/${TOTAL}</b><span class="muted">سورة</span></div></div>
@@ -377,7 +373,7 @@ function renderMore(){
     <div class="row"><button class="btn-main" id="bkOut">خذي نسخة احتياطية (ملف)</button><button id="bkIn">استرجاع من ملف</button></div>
     <div class="row" style="margin-top:8px"><button id="bkCopy">نسخ النسخة كنص</button><button id="bkPaste">استرجاع من نص</button></div>
     <p class="muted">إذا زر الملف ما نزّل شي، استعملي «نسخ النسخة كنص» والصقيه برسالة واتساب لحالك.</p></div>
-  <div class="card"><h2>معلومات</h2><p class="muted">أيام الدوام: السبت والاثنين. التحذير بيطلع لما الطالب يغيب ${WARN_AFTER} حصص ورا بعض. سور جزء عمّ: ${TOTAL} سورة (من الناس للنبأ).</p></div>`;
+  <div class="card"><h2>معلومات</h2><p class="muted">أيام الدوام: السبت والاثنين. التحذير بيطلع لما يصير مجموع غيابات الطالب ${WARN_AFTER} حصص أو أكثر. سور جزء عمّ: ${TOTAL} سورة (من الناس للنبأ).</p></div>`;
   $('#impXl').onclick = () => pickFile('.xlsx,.xls,.csv', importStudents);
   $('#expXl').onclick = () => exportReport(false);
   $('#expCopy').onclick = () => exportReport(true);
@@ -425,10 +421,10 @@ async function importStudents(file){
 }
 async function exportReport(asText){
   const dates = Object.keys(S.sessions).sort();
-  const sum = [['الاسم','الهاتف','حضور','غياب','غياب متتالي','سور محفوظة','قيد الحفظ','السور المحفوظة']];
+  const sum = [['الاسم','الهاتف','حضور','غياب','سور محفوظة','قيد الحفظ','السور المحفوظة']];
   for(const s of sorted()){
     const st = stats(s.id);
-    sum.push([s.name, s.phone||'', st.present, st.absent, st.streak, doneCount(s), ORDER.filter(n=>s.surahs?.[n]==='learning').length, ORDER.filter(n=>s.surahs?.[n]==='done').map(n=>SURAHS[n]).join('، ')]);
+    sum.push([s.name, s.phone||'', st.present, st.absent, doneCount(s), ORDER.filter(n=>s.surahs?.[n]==='learning').length, ORDER.filter(n=>s.surahs?.[n]==='done').map(n=>SURAHS[n]).join('، ')]);
   }
   const log = [['التاريخ','الاسم','الحضور','السورة','النتيجة','ملاحظة']];
   for(const d of dates) for(const s of sorted()){
